@@ -1,0 +1,230 @@
+---
+title: "readme"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{readme}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+
+# How to use the (AECP) R-Code to calculate the Pesticide Load according to the
+Danish model (Kudsk et al., 2018; Möhring et al., 20191 ).
+
+## Niklas Möhring and Leonie Vidensky, Agricultural Economics and Policy Group (AECP), ETH Zurich
+
+First, two datasets are set up:
+
+1. Data on active substances and standard dosages per pesticide product
+2. Data on toxicity, fate and human health effects of the product
+
+Data on active substances and standard dosages per product has to be obtained
+from the official register of plant protection products or from producer
+information.
+
+Data on toxicity, fate and human health effects of the active substances and
+products are available (on license) from the Pesticide Properties Data Base
+(https://sitem.herts.ac.uk/aeru/ppdb/index.htm).
+
+Reference values i.e. values for the most toxic substance are user defined
+(e.g. highest value of the sample or reference values from the Danish model).
+
+To calculate application application-/farm- specific Load values, information
+on the applied pesticide product and the applied amount of pesticides is
+needed.
+
+For the calculation of the Pesticide Load, two empty Excel sheets are provided
+(Table_R_substances.xlsx, Table_R_products.xlsx). To calculate the Load values,
+the above mentioned data has to be filled into the Excel sheets (using the
+corresponding columns). The data can then be read in and the Load indicator can
+be computed, using the provided R file (AECP_Load_computation.R).
+
+Following, we describe in detail which data is needed for the computation of
+the Load indicator – to use the R-code fill in the information corresponding
+with the column name in the Excel sheet and use the R file
+(AECP_Load_computation.R) to read in the information and compute the indicator.
+
+1
+
+Kudsk, P., Jørgensen, L. N., & Ørum, J. E. (2018). Pesticide Load—A new Danish
+pesticide risk indicator with multiple applications. Land Use Policy, 70,
+384-393.
+
+Möhring, N., Gaba, S., & Finger, R. (2019). Quantity based indicators fail to
+identify extreme pesticide risks. Science of the total environment, 646,
+503-523. On the active substances (Table_R_substances.xlsx):
+
+substance: name of the active substance.
+
+product: name of the product containing the active substance.
+
+concentration: concentration of active substance in kg active substance per kg
+product.
+
+SCI-Grow: SCI-Grow groundwater index (μg l- 1 ) for a 1 l ha - 1 application
+rate.
+
+reference.SCI-Grow: SCI-grow Index reference value (user defined: e.g. highest
+sample value).
+
+load.factor.SCI-grow: Weighting of the sub indicator SCI-Grow.
+
+BCF: bio-concentration factor (l kg-1 ) available from the PPDB.
+
+reference.BCF: bio-concentration factor reference value (user defined: e.g.
+highest sample value).
+
+load.factor.BCF: Weighting of the sub indicator potential for bio-accumulation.
+
+soilDT50: Soil degradation (days) (aerobic) DT50 (typical) for the active
+substance available from the PPDB.
+
+reference.soilDT50: soilDT50 reference value (user defined: e.g. highest sample
+value).
+
+load.factor.soilDT50: Weighting of the sub indicator degradation in the soil.
+
+birds.acute.LD50.mg.kg: LD50 value for birds of the active substance in mg kg
+-1 body weight of the organism tested on. Value available from the PPDB.
+
+reference.birds: LD50 birds reference value (user defined: e.g. highest sample
+value).
+
+load.factor.birds: Weighting or the sub indicator short-term effects on birds.
+
+mammals.acute.oral.LD50.mg.kg.BW.day: Mammals - Acute oral LD50 (mg kg-1 )
+available from the PPDB.
+
+reference.mammals: LD50 mammals reference value (user defined: e.g. highest
+sample value).
+
+load.factor.mammals: Weighting of the sub indicator short-term effects on
+mammals.
+
+fish.acute.96hr.LC50.mg.l: Fish - Acute 96 hour LC50 (mg l-1 ) available from
+PPDB.
+
+reference.fish: LC50 fish reference value (user defined: e.g. highest sample
+value).
+
+load.factor.fish: Weighting of the sub indicator short-term effects on fish.
+
+aquatic.invertebrates.acute.48hr.EC50.mg.l: Aquatic invertebrates - Acute 48
+hour EC50 (mg l-1 ) for the active substance available from the PPDB.
+
+reference.aquatic.invertebrates: EC50 aquatic invertebrates reference value
+(user defined: e.g. highest sample value).
+
+load.factor.aquatic.invertebrates: Weighting of the sub indicator short-term
+effects on aquatic invertebrates.
+
+algae.acute.72hr.EC50.growth.mg.l: Algae - Acute 72 hour EC50, growth (mg l-1 )
+available from the PPDB.
+
+reference.algae: EC50 algae reference value (user defined: e.g. highest sample
+value).
+
+load.factor.algae: Weighting of sub indicator short-term effects on algae.
+
+aquatic.plants.acute.7d.EC50.mg.l: Aquatic plants - Acute 7 day EC50, biomass
+(mg l-1 ) available from the PPDB.
+
+reference.aquatic.plants: EC50 aquatic plants reference value (user defined:
+e.g. highest sample value).
+
+load.factor.aquatic.plants: Weighting of the sub indicator short-term effects
+on aquatic plants.
+
+earthworms.acute.14d.LC50.mg.kg: Earthworms - Acute 14 day LC50 (mg kg-1
+)available from the PPDB.
+
+reference.earthworms: LC50 earthworms reference value (user defined: e.g.
+highest sample value).
+
+load.factor.earthworms: Weighting of the sub indicator short-term effects on
+earthworms.
+
+beesLD50: average from Contact acute LD50 (worst case from 24, 48 and 72 hour
+values - μg bee- 1 ) and Oral acute LD50 (worst case from 24 , 48 and 72 hour
+values - μg bee- 1 ) available from PPDB.
+
+reference.bees: LD50 bees reference value (user defined: e.g. highest sample
+value). load.factor.bees: Weighting of the sub indicator short-term effects on
+bees.
+
+fish.chronic.21d.NOEC.mg.l: Fish - Chronic 21 day NOEC (mg l-1 ) available from
+PPDB.
+
+reference.fish.chronic: chronic NOEC fish reference value (user defined: e.g.
+highest sample value).
+
+load.factor.fish.chronic: Weighting of the sub indicator long-term effects on
+fish.
+
+water.phase.DT50.days: Water phase only DT50 (days) available from PPDB.
+
+aquatic.invertebrates.chronic.21d.NOEC.mg.l: Aquatic invertebrates - Chronic 21
+day NOEC (mg l-1 ) available from PPBD.
+
+reference.aquatic.invertebrates.chronic: Chronic 21 day NOEC reference value
+(user defined: e.g. highest sample value).
+
+load.factor.aquatic.invertebrates.chronic: Weighting of the sub indicator
+long-term effects on aquatic invertebrates.
+
+earthworms.chronic.14d.NOEC.reproduction.mg.kg: Earthworms - Chronic NOEC,
+reproduction (mg kg-1 ) available from PPDB.
+
+reference.earthworms.chronic: chronic NOEC earthworms reference value (user
+defined: e.g. highest sample value).
+
+load.factor.earthworms.chronic: Weighting for the sub indicator long-term
+effect on earthworms.
+
+environmental.toxicity.load.substance: environmetal toxicity load of the active
+substance as sum of the sub indicators of short-term effects on mammals, birds,
+fish, aquatic invertebrates, algae, aquatic plants, earthworms and bees and the
+long-term effects on fish, aquatic invertebrates and earthworms.
+
+On the product (Table_R_products.xlsx):
+
+product: name of the product applied.
+
+crop: name of the crop the product is applied on.
+
+sum.risk.score: sum of all risk scores (R-phrases) of the product. If R-phrases
+are not available of the product H-phrases can be used.
+
+reference.sum.risk.score: risk score of the most toxic substance.
+
+formula: factor accounting for risk of exposure depending on formulation of the
+product. If the product is a powder that must be dissolved in water before use
+or a liquid: factor 1.5.
+
+For other formulation: factor 1.0.
+
+amount.applied: amount of the product adopted on the crop in the growing season
+(l ha-1 ).
+
+standard.doses: dosage information for the amount of a product to be applied on
+the crop as published by the official register of plant protection products or
+from producer information (l ha-1 ).
+
+Import the two datasets to R. Run the provided code.
+
+In the datasets in R results from calculation are shown as:
+
+
+- L: pesticide load of the product (pesticide load per kg product)
+- LI: pesticide load index of the product (pesticide load per standard dose)
+- HL: health load of the product
+- TL: toxicity load of the product FL: fate load of the product 
+

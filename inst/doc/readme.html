@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>readme</title>
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">readme</h1>
+
+
+
+<div id="how-to-use-the-aecp-r-code-to-calculate-the-pesticide-load-according-to-the" class="section level1">
+<h1>How to use the (AECP) R-Code to calculate the Pesticide Load according to the</h1>
+<p>Danish model (Kudsk et al., 2018; Möhring et al., 20191 ).</p>
+<div id="niklas-möhring-and-leonie-vidensky-agricultural-economics-and-policy-group-aecp-eth-zurich" class="section level2">
+<h2>Niklas Möhring and Leonie Vidensky, Agricultural Economics and Policy Group (AECP), ETH Zurich</h2>
+<p>First, two datasets are set up:</p>
+<ol style="list-style-type: decimal">
+<li>Data on active substances and standard dosages per pesticide product</li>
+<li>Data on toxicity, fate and human health effects of the product</li>
+</ol>
+<p>Data on active substances and standard dosages per product has to be obtained from the official register of plant protection products or from producer information.</p>
+<p>Data on toxicity, fate and human health effects of the active substances and products are available (on license) from the Pesticide Properties Data Base (<a href="https://sitem.herts.ac.uk/aeru/ppdb/index.htm" class="uri">https://sitem.herts.ac.uk/aeru/ppdb/index.htm</a>).</p>
+<p>Reference values i.e. values for the most toxic substance are user defined (e.g. highest value of the sample or reference values from the Danish model).</p>
+<p>To calculate application application-/farm- specific Load values, information on the applied pesticide product and the applied amount of pesticides is needed.</p>
+<p>For the calculation of the Pesticide Load, two empty Excel sheets are provided (Table_R_substances.xlsx, Table_R_products.xlsx). To calculate the Load values, the above mentioned data has to be filled into the Excel sheets (using the corresponding columns). The data can then be read in and the Load indicator can be computed, using the provided R file (AECP_Load_computation.R).</p>
+<p>Following, we describe in detail which data is needed for the computation of the Load indicator – to use the R-code fill in the information corresponding with the column name in the Excel sheet and use the R file (AECP_Load_computation.R) to read in the information and compute the indicator.</p>
+<p>1</p>
+<p>Kudsk, P., Jørgensen, L. N., &amp; Ørum, J. E. (2018). Pesticide Load—A new Danish pesticide risk indicator with multiple applications. Land Use Policy, 70, 384-393.</p>
+<p>Möhring, N., Gaba, S., &amp; Finger, R. (2019). Quantity based indicators fail to identify extreme pesticide risks. Science of the total environment, 646, 503-523. On the active substances (Table_R_substances.xlsx):</p>
+<p>substance: name of the active substance.</p>
+<p>product: name of the product containing the active substance.</p>
+<p>concentration: concentration of active substance in kg active substance per kg product.</p>
+<p>SCI-Grow: SCI-Grow groundwater index (μg l- 1 ) for a 1 l ha - 1 application rate.</p>
+<p>reference.SCI-Grow: SCI-grow Index reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.SCI-grow: Weighting of the sub indicator SCI-Grow.</p>
+<p>BCF: bio-concentration factor (l kg-1 ) available from the PPDB.</p>
+<p>reference.BCF: bio-concentration factor reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.BCF: Weighting of the sub indicator potential for bio-accumulation.</p>
+<p>soilDT50: Soil degradation (days) (aerobic) DT50 (typical) for the active substance available from the PPDB.</p>
+<p>reference.soilDT50: soilDT50 reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.soilDT50: Weighting of the sub indicator degradation in the soil.</p>
+<p>birds.acute.LD50.mg.kg: LD50 value for birds of the active substance in mg kg -1 body weight of the organism tested on. Value available from the PPDB.</p>
+<p>reference.birds: LD50 birds reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.birds: Weighting or the sub indicator short-term effects on birds.</p>
+<p>mammals.acute.oral.LD50.mg.kg.BW.day: Mammals - Acute oral LD50 (mg kg-1 ) available from the PPDB.</p>
+<p>reference.mammals: LD50 mammals reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.mammals: Weighting of the sub indicator short-term effects on mammals.</p>
+<p>fish.acute.96hr.LC50.mg.l: Fish - Acute 96 hour LC50 (mg l-1 ) available from PPDB.</p>
+<p>reference.fish: LC50 fish reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.fish: Weighting of the sub indicator short-term effects on fish.</p>
+<p>aquatic.invertebrates.acute.48hr.EC50.mg.l: Aquatic invertebrates - Acute 48 hour EC50 (mg l-1 ) for the active substance available from the PPDB.</p>
+<p>reference.aquatic.invertebrates: EC50 aquatic invertebrates reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.aquatic.invertebrates: Weighting of the sub indicator short-term effects on aquatic invertebrates.</p>
+<p>algae.acute.72hr.EC50.growth.mg.l: Algae - Acute 72 hour EC50, growth (mg l-1 ) available from the PPDB.</p>
+<p>reference.algae: EC50 algae reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.algae: Weighting of sub indicator short-term effects on algae.</p>
+<p>aquatic.plants.acute.7d.EC50.mg.l: Aquatic plants - Acute 7 day EC50, biomass (mg l-1 ) available from the PPDB.</p>
+<p>reference.aquatic.plants: EC50 aquatic plants reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.aquatic.plants: Weighting of the sub indicator short-term effects on aquatic plants.</p>
+<p>earthworms.acute.14d.LC50.mg.kg: Earthworms - Acute 14 day LC50 (mg kg-1 )available from the PPDB.</p>
+<p>reference.earthworms: LC50 earthworms reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.earthworms: Weighting of the sub indicator short-term effects on earthworms.</p>
+<p>beesLD50: average from Contact acute LD50 (worst case from 24, 48 and 72 hour values - μg bee- 1 ) and Oral acute LD50 (worst case from 24 , 48 and 72 hour values - μg bee- 1 ) available from PPDB.</p>
+<p>reference.bees: LD50 bees reference value (user defined: e.g. highest sample value). load.factor.bees: Weighting of the sub indicator short-term effects on bees.</p>
+<p>fish.chronic.21d.NOEC.mg.l: Fish - Chronic 21 day NOEC (mg l-1 ) available from PPDB.</p>
+<p>reference.fish.chronic: chronic NOEC fish reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.fish.chronic: Weighting of the sub indicator long-term effects on fish.</p>
+<p>water.phase.DT50.days: Water phase only DT50 (days) available from PPDB.</p>
+<p>aquatic.invertebrates.chronic.21d.NOEC.mg.l: Aquatic invertebrates - Chronic 21 day NOEC (mg l-1 ) available from PPBD.</p>
+<p>reference.aquatic.invertebrates.chronic: Chronic 21 day NOEC reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.aquatic.invertebrates.chronic: Weighting of the sub indicator long-term effects on aquatic invertebrates.</p>
+<p>earthworms.chronic.14d.NOEC.reproduction.mg.kg: Earthworms - Chronic NOEC, reproduction (mg kg-1 ) available from PPDB.</p>
+<p>reference.earthworms.chronic: chronic NOEC earthworms reference value (user defined: e.g. highest sample value).</p>
+<p>load.factor.earthworms.chronic: Weighting for the sub indicator long-term effect on earthworms.</p>
+<p>environmental.toxicity.load.substance: environmetal toxicity load of the active substance as sum of the sub indicators of short-term effects on mammals, birds, fish, aquatic invertebrates, algae, aquatic plants, earthworms and bees and the long-term effects on fish, aquatic invertebrates and earthworms.</p>
+<p>On the product (Table_R_products.xlsx):</p>
+<p>product: name of the product applied.</p>
+<p>crop: name of the crop the product is applied on.</p>
+<p>sum.risk.score: sum of all risk scores (R-phrases) of the product. If R-phrases are not available of the product H-phrases can be used.</p>
+<p>reference.sum.risk.score: risk score of the most toxic substance.</p>
+<p>formula: factor accounting for risk of exposure depending on formulation of the product. If the product is a powder that must be dissolved in water before use or a liquid: factor 1.5.</p>
+<p>For other formulation: factor 1.0.</p>
+<p>amount.applied: amount of the product adopted on the crop in the growing season (l ha-1 ).</p>
+<p>standard.doses: dosage information for the amount of a product to be applied on the crop as published by the official register of plant protection products or from producer information (l ha-1 ).</p>
+<p>Import the two datasets to R. Run the provided code.</p>
+<p>In the datasets in R results from calculation are shown as:</p>
+<ul>
+<li>L: pesticide load of the product (pesticide load per kg product)</li>
+<li>LI: pesticide load index of the product (pesticide load per standard dose)</li>
+<li>HL: health load of the product</li>
+<li>TL: toxicity load of the product FL: fate load of the product</li>
+</ul>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
