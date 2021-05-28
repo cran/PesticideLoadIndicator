@@ -161,6 +161,8 @@ prepare.substances <- function(substances)
 #' the Pesticide Load Index (LI=STI*L) are also computed.
 #' @examples
 #' \dontrun{
+#' # A) Compute Pesticide Load indicator for a complete database
+#' 
 #' # load the dataframe containing the pesticide use data.
 #' products_user <- products.load()
 #' # load the (user-supplied) dataframe with detailed information on used pesticides.
@@ -169,6 +171,54 @@ prepare.substances <- function(substances)
 #' # Compute the Pesticide Load Indicator and its sub-indicators using the user supplied data.
 #' indicators_user <- compute_pesticide_load_indicator(substances = substances_user,
 #' products= products_user)
+#' 
+#' # B) Compute Pesticide Load Indicator starting from basic data on products used
+#' # Add properties of pesticides with match_ppdb()
+#' 
+#' # Step1: load the dataframe containing the basic pesticide use data.
+#' products_basic <- products.load()[,c("product","crop","standard.dosage","formula")]
+#' # Step2: Add information on the year in which the product is used.
+#' # (not neccessary if all data is before 2013 - then just insert a dummy year > 2013)
+#' products_basic$Year <- c(2009,2010,2011,2012)
+#'
+#' # Step3: load the (user-supplied) dataframe with basic information on used pesticides
+#' substances_basic <- substances.load()[,c("substance","product","concentration")]
+#'
+#' # Step4: Add the CAS number of each active ingredient to link to the Pesticide Properties database.
+#' substances_basic$CAS.number <- c("94361-06-5","141517-21-7","111988-49-9","467-69-6",
+#'                                 "1918-00-9","94-74-6","21087-64-9","142459-58-3")
+#'
+#' # Step5: Add the Load factors as defined in the Danish Pesticide Load indicator.
+#' # These values are supplied in the package.
+#' # Alternatively supply own values for the Load factor.
+#' Load.factors <- c("Load.Factor.SCI","Load.Factor.BCF","Load.Factor.SoilDT50",
+#'        "Load.Factor.Birds","Load.Factor.Mammals","Load.Factor.Fish",
+#'        "Load.Factor.Aquatic.Invertebrates","Load.Factor.Algae","Load.Factor.Aquatic.Plants",
+#'        "Load.Factor.Earthworms","Load.Factor.Bees","Load.Factor.Fish.Chronic",
+#'        "Load.Factor.Aquatic.Invertebrates.Chronic","Load.Factor.Earthworms.Chronic")
+#' for (i in 1:length(Load.factors)){
+#'   substances_basic[,Load.factors[i]]<- rep(times=dim(substances_basic)[[1]],
+#'                                           substances.load()[1,Load.factors[i]])
+#' }
+#' 
+#' # Step6: Add pesticide properties from the PPDB using the match_ppdb() function
+#' # Indicate the folder containing the "General","Fate", "Human" and "Ecotox" tables of the PPPDB.
+#' # Excel files (under the exact same name, e.g. Human.xlsx) are required.
+#' # Attention, a licensed access to the PPPDB (Lewis et al., 2016) is required.
+#' # Note that the "Fate" table should include a column indicating the "SCI.GROW" values.
+#' folder <- "path"
+#' matched_data <- match.ppdb (substances=substances_basic, products=products_basic, 
+#'                             folder=folder, healthrisk_off=TRUE)
+#'                             
+#' products_complete<- matched_data[[1]]
+#' substances_complete<- matched_data[[2]]
+#' 
+#' # Supply the sum of risk scores based on the product label to compute the Human Health Load.
+#' products_complete$sum.risk.score <- c(150,25,20,130)                                                        
+#'
+#' # Step7: Compute the Pesticide Load Indicator and its sub-indicators 
+#' indicators_user <- compute_pesticide_load_indicator(substances = substances_complete,
+#' products= products_complete)
 #' }
 #' @export
 
@@ -193,125 +243,6 @@ compute_pesticide_load_indicator <- function(substances, products) {
 }
 
 
-#' @title Compute Pesticide Load Indicator using the Pesticide Properties database
-#'
-#' @param products Dataframe with raw pesticide application data.
-#' @param substances Dataframe describing active ingredients of the applied pesticide products and their CAS number.
-#' @param folder Folder with exported xlsx files from PPDB containing information on active ingredient properties.
-#' @return Dataframe with pesticide indicators for each pesticide application 
-#' indicated in the products dataframe.
-#' Computes Pesticide Load Indicator (L) and its subindicators:
-#' The Human Health Load (HL), Ecotoxicity Load (TL) and Fate Load (FL).
-#' @examples
-#' \dontrun{
-#' # load the dataframe containing the pesticide use data.
-#' products_ppdb <- products.load()[,c("product","crop","standard.dosage","formula")]
-#' # Add information on the year in which the product is used.
-#' products_ppdb$Year <- c(2009,2010,2011,2012)
-#'
-#' # load the (user-supplied) dataframe with information on used pesticides
-#' substances_ppdb <- substances.load()[,c("substance","product","concentration")]
-#'
-#' # Add the CAS number of each active ingredient to link to the Pesticide Properties database.
-#' substances_ppdb$CAS.number <- c("94361-06-5","141517-21-7","111988-49-9","467-69-6",
-#'                                 "1918-00-9","94-74-6","21087-64-9","142459-58-3")
-#'
-#' Load.factors <- c("Load.Factor.SCI","Load.Factor.BCF","Load.Factor.SoilDT50",
-#'        "Load.Factor.Birds","Load.Factor.Mammals","Load.Factor.Fish",
-#'        "Load.Factor.Aquatic.Invertebrates","Load.Factor.Algae","Load.Factor.Aquatic.Plants",
-#'        "Load.Factor.Earthworms","Load.Factor.Bees","Load.Factor.Fish.Chronic",
-#'        "Load.Factor.Aquatic.Invertebrates.Chronic","Load.Factor.Earthworms.Chronic")
-#' # Add the Load factors as defined in the Danish Pesticide Load indicator.
-#' # Alternatively supply own values for the Load factor.
-#' for (i in 1:length(Load.factors)){
-#'   substances_ppdb[,Load.factors[i]]<- rep(times=dim(substances_ppdb)[[1]],
-#'                                           substances.load()[1,Load.factors[i]])
-#' }
-#' # Indicate the folder containing the "General","Fate", "Human" and "Ecotox" tables of the PPPDB.
-#' # Excel files (under the exact same name, e.g. Human.xlsx) are required.
-#' # Attention, a licensed access to the PPPDB (Lewis et al., 2016) is required.
-#' # Note that the "Fate" table should include a column indicating the "SCI.GROW" values.
-#' folder <- "path"
-#'
-#' # Compute the Pesticide Load Indicator and its sub-indicators using the user supplied data.
-#' indicators_ppdb  <- compute_pesticide_load_indicator_ppdb(substances = substances_ppdb,
-#' products= products_ppdb, folder=folder)
-#' }
-#' @export
-
-
-
-compute_pesticide_load_indicator_ppdb <- function(substances, products, folder) {
-
-  check_columns(substances, required_columns_substances_reduced, c(), "substances");
-  check_columns(products, required_columns_products_reduced, c(), "products");
-
-  tables <- match.ppdb(substances, products, folder)
-  substances <- tables$substances
-  products <- tables$products
-  products <- products[, names(products) != "Year"]
-  return(compute_pesticide_load_indicator(substances, products))
-}
-
-#' @title Compute Pesticide Load Indicator for a single application using the Pesticide Properties database
-#'
-#' @param folder Folder with exported xlsx files from PPDB containing information on active ingredient properties.
-#' @param product Product name of the applied pesticide.
-#' @param year Application year.
-#' @param formula Load formulation factor for applied product.
-#' @param substances List or vector of active ingredient names of the applied pesticide.
-#' @param cas_numbers List or vector of CAS numbers of the respective active ingredients.
-#' @param concentrations List or vector of product concentrations of the respective active ingredients.
-#' @param ... overrides for default Load factors.
-#' @return Dataframe with pesticide indicators for a single pesticide application
-#' indicated by the user.
-#' Computes Pesticide Load Indicator (L) and its subindicators:
-#' The Human Health Load (HL), Ecotoxicity Load (TL) and Fate Load (FL).
-#' @examples
-#' \dontrun{
-#' # Indicate the folder containing the "General","Fate", "Human" and "Ecotox" tables of the PPPDB.
-#' # Excel files (under the exact same name, e.g. Human.xlsx) are required.
-#' # Attention, a licensed access to the PPPDB (Lewis et al., 2016) is required.
-#' # Note that the "Fate" table should include a column indicating the "SCI.GROW" values
-#' folder <- "path"
-#'
-#' # Compute the Pesticide Load indicator and its subindicators for a single product.
-#' # Allows to optionally alter the predefined Load.Values.
-#' compute_pesticide_load_indicator_single(
-#'   folder=folder,
-#'   product="Agora",
-#'   year=2009,
-#'   formula=1.5,
-#'   substances=c("Cyproconazol", "Trifloxystrobin"),
-#'   cas_numbers=c("94361-06-5", "141517-21-7"),
-#'   concentrations = c(0.08,0.1875)
-#' )
-#' }
-#' @export
-
-compute_pesticide_load_indicator_single <- function(folder, product, year, formula,
-                                                    substances, cas_numbers,
-                                                    concentrations, ...) {
-
-    products <- data.frame(product=product,
-                           Year=year,
-                           crop="",
-                           standard.dosage="",
-                           formula=formula)
-
-    substances <- data.frame(CAS.number=cas_numbers,
-                             substance=substances,
-                             concentration=concentrations,
-                             product=product)
-    overrides <- list(...)
-    for (name in names(default.load.factors)) {
-        value <- overrides[[name]]
-        if (is.null(value))
-            value <- default.load.factors[[name]]
-        substances[[name]] <- value
-    }
-    compute_pesticide_load_indicator_ppdb(substances, products, folder)
-}
 
 
 #' @title Check if column names of substances dataframe are valid

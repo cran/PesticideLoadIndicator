@@ -2,9 +2,9 @@
 % Please edit documentation in R/match_ppdb.R
 \name{match.ppdb}
 \alias{match.ppdb}
-\title{Expend tables with information on ecotoxicity, fate and human health properties from PPDB}
+\title{Expend tables with information on ecotoxicity, fate (and human health) properties from PPDB}
 \usage{
-match.ppdb(substances, products, folder)
+match.ppdb(substances, products, folder, healthrisk_off = TRUE)
 }
 \arguments{
 \item{substances}{Dataframe describing active ingredients of the applied pesticide products and their CAS number.}
@@ -12,10 +12,26 @@ match.ppdb(substances, products, folder)
 \item{products}{Dataframe with raw pesticide application data.}
 
 \item{folder}{Folder with exported xlsx files from PPDB containing information on active ingredient properties.}
+
+\item{healthrisk_off}{Compute the Human Health risk sum score from the PPDb (default off).}
 }
 \value{
-names Lists with updated substance and product data frames.
+Adds Ecotoxicity and Fate properties of active substances
+needed to compute the Pesticide Load Indicator
+to user-provided substance and product data frames.
+Properties are based on information from the Pesticide Properties Database (PPDB),
+which has to be provided by the user in Excel format (license required).
+Note that the function can optionally also retrieve the
+sum of risk scores for Human Health from the PPDB, based on
+active ingredient-level risk phrases in the PPDB.
+This is not recommended.
+Best practice is to compute the sum of risk scores
+based on risk phrases of the respective pesticide product
+(see Kudsk et al., 2018 for weighing of respective risk phrases).
+Product label information cannot be retrieved from the PPDB as labels
+might be country-specific. Check national pesticide databases for
+this information.
 }
 \description{
-Expend tables with information on ecotoxicity, fate and human health properties from PPDB
+Expend tables with information on ecotoxicity, fate (and human health) properties from PPDB
 }

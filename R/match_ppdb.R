@@ -117,6 +117,7 @@ compute_R <- function(human) {
     R28 <- ifelse(str_detect(human$EC.Risk.Classification, "28"), 70, 0)
     R34 <- ifelse(str_detect(human$EC.Risk.Classification, "34"), 70, 0)
     R40 <- ifelse(str_detect(human$EC.Risk.Classification, "40"), 70, 0)
+    R41 <- ifelse(str_detect(human$EC.Risk.Classification, "41"), 70, 0)
 
     R62 <- ifelse(str_detect(human$EC.Risk.Classification, "62"), 70, 0)
     R63 <- ifelse(str_detect(human$EC.Risk.Classification, "63"), 70, 0)
@@ -133,7 +134,7 @@ compute_R <- function(human) {
     R61 <- ifelse(str_detect(human$EC.Risk.Classification, "61"), 100, 0)
 
     R <- (R20 + R21 + R22 + R23 + R24 + R25 + R26 + R27 + R28 + R33 + R34
-        + R35 + R36 + R37 + R38 + R39 + R40 + R42 + R43 + R45 + R46
+        + R35 + R36 + R37 + R38 + R39 + R40 + R41 + R42 + R43 + R45 + R46
         + R48 + R49 + R60 + R61 + R62 + R63 + R64 + R65 + R66 + R67 + R68)
     R
 }
@@ -305,7 +306,7 @@ create.substances.table <- function(input_table, general, fate, ecotox) {
         row = input_table[irow,]
         CAS = row$CAS.number
         substance = row$substance
-        if (CAS == "" || substance == "")
+        if (CAS == "" || substance == ""  ) 
             next
 
         match = general[which(general[, cas.index] == CAS),]
@@ -351,7 +352,7 @@ create.substances.table <- function(input_table, general, fate, ecotox) {
                 row$concentration,
 
                 fate_row$SCI.GROW,
-                12.5,
+                10.91,
                 20, # row$Load.Factor.SCI,
 
                 fate_row$BCF,
@@ -363,11 +364,11 @@ create.substances.table <- function(input_table, general, fate, ecotox) {
                 2.5, # row$Load.Factor.SoilDT50,
 
                 ecotox_row$Birds...Acute.LD50.mg.kg,
-                10,
+                49,
                 1, # row$Load.Factor.Birds,
 
                 ecotox_row$Mammals...Acute.Oral.LD50.mg.kg.BW.day,
-                8,
+                20,
                 1, # row$Load.Factor.Mammals,
 
                 ecotox_row$Fish...Acute.96hr.LC50.mg.l,
@@ -375,37 +376,37 @@ create.substances.table <- function(input_table, general, fate, ecotox) {
                 30, # row$Load.Factor.Fish,
 
                 ecotox_row$Aquatic.Invertebrates...Acute.48hr.EC50.mg.l,
-                0.00015,
+                0.0003,
                 30, # row$Load.Factor.Aquatic.Invertebrates,
 
                 ecotox_row$Algae...Acute.72hr.EC50.Growth.mg.l,
-                0.00002,
+                0.000025,
                 3, # row$Load.Factor.Algae,
 
                 ecotox_row$Aquatic.Plants...Acute.7d.EC50.mg.l,
-                0.00035,
+                0.00036,
                 3, # row$Load.Factor.Aquatic.Plants,
 
                 ecotox_row$Earthworms...Acute.14d.LC50.mg.kg,
-                1.0,
+                3.4,
                 2, # row$Load.Factor.Earthworms,
 
                 ecotox_honeybees,
-                0.015,
+                0.02,
                 100, # row$Load.Factor.Bees,
 
                 ecotox_row$Fish...Chronic.21d.NOEC.mg.l,
-                0.00015,
+                0.000115,
                 3, # row$Load.Factor.Fish.Chronic,
 
                 fate_row$Water.phase.DT50...days,
 
                 ecotox_row$Aquatic.Invertebrates...Chronic.21d.NOEC.mg.l,
-                0.00015,
+                0.000115,
                 3, # row$Load.Factor.Aquatic.Invertebrates.Chronic,
 
                 ecotox_row$Earthworms...Chronic.NOEC..Reproduction.mg.kg,
-                0.8,
+                0.2,
                 2 # row$Load.Factor.Earthworms.Chronic
                 )
 
@@ -422,16 +423,33 @@ create.substances.table <- function(input_table, general, fate, ecotox) {
 }
 
 
-#' @title Expend tables with information on ecotoxicity, fate and human health properties from PPDB
+#' @title Expend tables with information on ecotoxicity, fate (and human health) properties from PPDB
 #'
 #' @param products Dataframe with raw pesticide application data.
 #' @param substances Dataframe describing active ingredients of the applied pesticide products and their CAS number.
 #' @param folder Folder with exported xlsx files from PPDB containing information on active ingredient properties.
-#' @return names Lists with updated substance and product data frames.
+#' @param healthrisk_off Compute the Human Health risk sum score from the PPDb (default off).
+#' @return Adds Ecotoxicity and Fate properties of active substances
+#' needed to compute the Pesticide Load Indicator
+#' to user-provided substance and product data frames.
+#' Properties are based on information from the Pesticide Properties Database (PPDB),
+#' which has to be provided by the user in Excel format (license required).
+#' Note that the function can optionally also retrieve the
+#' sum of risk scores for Human Health from the PPDB, based on
+#' active ingredient-level risk phrases in the PPDB. 
+#' This is not recommended.
+#' Best practice is to compute the sum of risk scores
+#' based on risk phrases of the respective pesticide product
+#' (see Kudsk et al., 2018 for weighing of respective risk phrases). 
+#' Product label information cannot be retrieved from the PPDB as labels
+#' might be country-specific. Check national pesticide databases for
+#' this information.
 #'
 #' @export
 
-match.ppdb <- function(substances, products, folder) {
+#
+
+match.ppdb <- function(substances, products, folder, healthrisk_off=TRUE) {
 
     suppressWarnings({
         human <- read.excel(file.path(folder, "Human.xlsx"))
@@ -439,8 +457,14 @@ match.ppdb <- function(substances, products, folder) {
         fate <- read.excel(file.path(folder, "Fate.xlsx"))
         ecotox <- read.excel(file.path(folder, "Ecotox.xlsx"))
     })
+    
+    general <- general[!duplicated(general$CASS.RN),]
+    general <- general[!is.na(general$CASS.RN),]
 
     products <- extend.products.table(products, substances, human, general)
+    
+    if(healthrisk_off) products["sum.risk.score"]<-0
+    
     substances <- create.substances.table(substances, general, fate, ecotox)
 
     return(list(products=products, substances=substances))
