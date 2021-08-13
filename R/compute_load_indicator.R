@@ -213,10 +213,14 @@ prepare.substances <- function(substances)
 #' products_complete<- matched_data[[1]]
 #' substances_complete<- matched_data[[2]]
 #' 
-#' # Supply the sum of risk scores based on the product label to compute the Human Health Load.
-#' products_complete$sum.risk.score <- c(150,25,20,130)                                                        
+#' # Step7(optional): change reference values in the substances_complete data_frame if required.
+#' 
+#' # Step8: Supply the sum of risk scores based on the product label to compute the Human Health Load.
+#' # Add the reference value for the Human Health Load 
+#' products_complete$sum.risk.score <- c(150,25,20,130)
+#' products_complete$reference.sum.risk.scores <- 350                                                        
 #'
-#' # Step7: Compute the Pesticide Load Indicator and its sub-indicators 
+#' # Step9: Compute the Pesticide Load Indicator and its sub-indicators 
 #' indicators_user <- compute_pesticide_load_indicator(substances = substances_complete,
 #' products= products_complete)
 #' }

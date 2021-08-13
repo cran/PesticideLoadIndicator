@@ -469,3 +469,67 @@ match.ppdb <- function(substances, products, folder, healthrisk_off=TRUE) {
 
     return(list(products=products, substances=substances))
 }
+
+
+
+#' @title Calculates the sum of risk scores from a list of H-phrases and expands the table
+#'
+#' @param table Dataframe with H-phrases on product level.
+#' @param var_name Name of the variable that contains the information (string) on H-phrases.
+#' @return Adds a variable indicating the sum of risk scores
+#' needed to compute the Pesticide Load Indicator
+#' Check national pesticide databases for information on product labels of pesticides
+#' (information on H-phrases of each product).
+#'
+#' @export
+
+#
+
+
+compute_risk_score <- function(table,var_name) {
+    
+    
+    for ( i in 1:dim(table)[1])
+        { 
+    #If there are two different risk points per H, the higher one has been taken
+    #This happened for H300, H314, H330, H310)
+    H302 <- ifelse(str_detect(table[i,var_name], "302"), 10, 0)
+    H335 <- ifelse(str_detect(table[i,var_name], "335"), 10, 0)
+    H315 <- ifelse(str_detect(table[i,var_name], "315"), 10, 0)
+    H304 <- ifelse(str_detect(table[i,var_name], "304"), 10, 0)
+    H066 <- ifelse(str_detect(table[i,var_name], "066"), 10, 0)
+    H332 <- ifelse(str_detect(table[i,var_name], "332"), 15, 0)
+    H312 <- ifelse(str_detect(table[i,var_name], "312"), 15, 0)
+    H319 <- ifelse(str_detect(table[i,var_name], "319"), 15, 0)
+    H317 <- ifelse(str_detect(table[i,var_name], "317"), 20, 0)
+    H336 <- ifelse(str_detect(table[i,var_name], "336"), 30, 0)
+    H301 <- ifelse(str_detect(table[i,var_name], "301"), 50, 0)
+    H334 <- ifelse(str_detect(table[i,var_name], "334"), 50, 0)
+    H362 <- ifelse(str_detect(table[i,var_name], "362"), 50, 0)
+    H331 <- ifelse(str_detect(table[i,var_name], "331"), 70, 0)
+    H311 <- ifelse(str_detect(table[i,var_name], "311"), 70, 0)
+    H314 <- ifelse(str_detect(table[i,var_name], "314"), 100, 0)
+    H351 <- ifelse(str_detect(table[i,var_name], "351"), 70, 0)
+    H318 <- ifelse(str_detect(table[i,var_name], "318"), 70, 0)
+    H373 <- ifelse(str_detect(table[i,var_name], "373"), 70, 0)
+    H361 <- ifelse(str_detect(table[i,var_name], "361"), 70, 0)
+    H371 <- ifelse(str_detect(table[i,var_name], "371"), 70, 0)
+    H341 <- ifelse(str_detect(table[i,var_name], "341"), 70, 0)
+    H330 <- ifelse(str_detect(table[i,var_name], "330"), 100, 0)
+    H300 <- ifelse(str_detect(table[i,var_name], "300"), 85, 0)
+    H310 <- ifelse(str_detect(table[i,var_name], "310"), 100, 0)
+    H370 <- ifelse(str_detect(table[i,var_name], "370"), 100, 0)
+    H350 <- ifelse(str_detect(table[i,var_name], "350"), 100, 0)
+    H340 <- ifelse(str_detect(table[i,var_name], "340"), 100, 0)
+    H372 <- ifelse(str_detect(table[i,var_name], "372"), 100, 0)
+    H360 <- ifelse(str_detect(table[i,var_name], "360"), 100, 0)
+    
+    HR <- (H066 + H300 + H301 + H302 + H304 + H310 + H311 + H312 + H314 + H315
+           + H317 + H318 + H319 + H330 + H331 + H332 + H334 + H335 + H336 + H340
+           + H341 + H350 + H351 + H360 + H361 + H362 + H370 + H371 + H372 + H373)
+    HR
+    
+    table[i,"sum.risk.score"] <- HR
+    }
+    table
+}
