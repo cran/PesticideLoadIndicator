@@ -234,7 +234,7 @@ extend.products.table <- function(products_table, substances_table, human, gener
             }
         }
         products_table[irow, "sum.risk.score"] <- max(sum.risk.score, na.rm=T)
-        products_table[irow, "reference.sum.risk.scores"] <- 350
+        products_table[irow, "reference.sum.risk.scores"] <- 300
     }
 
     # remove duplicates
@@ -444,6 +444,9 @@ create.substances.table <- function(input_table, general, fate, ecotox) {
 #' Product label information cannot be retrieved from the PPDB as labels
 #' might be country-specific. Check national pesticide databases for
 #' this information.
+#' Note that you have to add teh reference value for sum.risk.scores, as follows, 
+#' if you select healthrisk_off=TRUE:
+#' products$reference.sum.risk.scores <- 300
 #'
 #' @export
 
@@ -476,6 +479,7 @@ match.ppdb <- function(substances, products, folder, healthrisk_off=TRUE) {
 #'
 #' @param table Dataframe with H-phrases on product level.
 #' @param var_name Name of the variable that contains the information (string) on H-phrases.
+#' For example "H317; H411" or "H410, H411".
 #' @return Adds a variable indicating the sum of risk scores
 #' needed to compute the Pesticide Load Indicator
 #' Check national pesticide databases for information on product labels of pesticides

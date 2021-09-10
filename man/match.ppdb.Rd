@@ -31,6 +31,9 @@ based on risk phrases of the respective pesticide product
 Product label information cannot be retrieved from the PPDB as labels
 might be country-specific. Check national pesticide databases for
 this information.
+Note that you have to add teh reference value for sum.risk.scores, as follows,
+if you select healthrisk_off=TRUE:
+products$reference.sum.risk.scores <- 300
 }
 \description{
 Expend tables with information on ecotoxicity, fate (and human health) properties from PPDB

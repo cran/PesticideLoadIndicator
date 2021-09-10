@@ -3,7 +3,11 @@
 #' Computing the PLI requires information on applied pesticides in a table format, as well as information on fate, ecotoxicity and human health properties of applied pesticide products, as provided in the Pesticide Properties Database (PPDB) of the University of Hertfordshire. See below for a detailed description.
 #' The PLI can either be computed using user supplied information on pesticide properties or by automatically including the information based on the PPDB. Access to the PPDb requires a license - see http://sitem.herts.ac.uk/aeru/ppdb/.
 
-#' @importFrom stats aggregate
+#' @importFrom magrittr %>%
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarize
+#' @importFrom dplyr ungroup
+#' @importFrom rlang .data
 
 required_columns_products <- c(
   "crop",
@@ -486,14 +490,15 @@ compute_health_load <- function(products) {
 
 compute_pesticide_load <- function(products, substances) {
 
-  TL.product <- substances$concentration * substances$Environmental.Toxicity.Substance
-  FL.product <- substances$concentration * substances$Fate.Load.substances
-
-  TL <- aggregate(TL.product, by = list(product = substances$product), FUN = sum)
-  FL <- aggregate(FL.product, by = list(product = substances$product), FUN = sum)
-
-  products$TL <- merge(products, TL, by="product", all.x=TRUE)$x
-  products$FL <- merge(products, FL, by="product", all.x=TRUE)$x
+  substances$TL.product <- substances$concentration * substances$Environmental.Toxicity.Substance
+  substances$FL.product <- substances$concentration * substances$Fate.Load.substances
+  
+  TLFL <- substances %>% 
+          group_by(.data$product) %>% 
+          summarize(TL=sum(.data$TL.product,na.rm = T),FL=sum(.data$FL.product,na.rm = T)) %>% 
+          ungroup()
+  
+  products <- merge(products, TLFL, by = "product", all.x = T)
 
   products$L <- products$HL + products$TL + products$FL
 

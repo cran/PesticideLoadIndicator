@@ -9,7 +9,8 @@ compute_risk_score(table, var_name)
 \arguments{
 \item{table}{Dataframe with H-phrases on product level.}
 
-\item{var_name}{Name of the variable that contains the information (string) on H-phrases.}
+\item{var_name}{Name of the variable that contains the information (string) on H-phrases.
+For example "H317; H411" or "H410, H411".}
 }
 \value{
 Adds a variable indicating the sum of risk scores
