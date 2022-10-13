@@ -1,6 +1,6 @@
 Package: PesticideLoadIndicator
 Title: Computes Danish Pesticide Load Indicator
-Version: 1.2.0
+Version: 1.3.0
 Authors@R: c(
     person(given = "Niklas",
            family = "Moehring",
@@ -40,7 +40,7 @@ Suggests: testthat, knitr, rmarkdown
 Imports: readxl, stringr, magrittr, rlang, dplyr
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-09-10 11:10:00 UTC; moehring
+Packaged: 2022-10-07 08:42:26 UTC; moehring
 Author: Niklas Moehring [aut, cre] (<https://orcid.org/0000-0003-0292-4402>),
   Leonie Vidensky [aut],
   Robert Finger [aut],
@@ -50,4 +50,4 @@ Author: Niklas Moehring [aut, cre] (<https://orcid.org/0000-0003-0292-4402>),
   Uwe Schmitt [ctb]
 Maintainer: Niklas Moehring <niklas.moehring@mtec.ethz.ch>
 Repository: CRAN
-Date/Publication: 2021-09-10 11:50:08 UTC
+Date/Publication: 2022-10-13 15:33:58 UTC

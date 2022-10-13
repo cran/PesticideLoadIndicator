@@ -1,9 +1,9 @@
-47d98bec9d5fca4d3feff757e12d5ce4 *DESCRIPTION
+9a3c707479b17fca239b5a960ddb569b *DESCRIPTION
 c987ec110708970977a53b569322cdfc *LICENSE
 093f43c537d8824814e68c453c99c602 *NAMESPACE
-d4f99da32f4296612473c88cddeefb0d *R/compute_load_indicator.R
+02f0b73e03d8ac650dcaf693ce737738 *R/compute_load_indicator.R
 822db94511b4067c28d8f5d7ce359880 *R/data_files.R
-6998b1500f04d9f88592284c42f10dca *R/match_ppdb.R
+1fc2aaac23d845e0bb747fdaf568b419 *R/match_ppdb.R
 ec3e49fc3eb5c81c2785c4346e43dec9 *README.md
 32c0faca82795e92a7c80274bba45a1f *build/vignette.rds
 e8c98e39c7a9fcb4b53cb90eb37e61cc *inst/doc/readme.R

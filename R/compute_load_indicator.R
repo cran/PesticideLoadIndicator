@@ -418,7 +418,7 @@ compute_toxity_load <- function(substances) {
                                / (((log(2) / substances$water.phase.DT50.days) * 7)))
 
   substances$Degradation.Factor.Water <- (
-    ifelse(substances$water.phase.DT50.days == 0 | substances$water.phase.DT50.days == 708,
+    ifelse(substances$water.phase.DT50.days == 0 | substances$water.phase.DT50.days == 730,
       1,
       degradation_factor_water
     )
@@ -447,7 +447,7 @@ compute_toxity_load <- function(substances) {
   degradation_factor_soil <-
     (1 - exp((-log(2) / substances$SoilDT50) * 180)) / ((log(2) / substances$SoilDT50) * 180)
 
-  substances$Degradation.Factor.Soil <- ifelse(substances$SoilDT50 == 0 | substances$SoilDT50 == 708,
+  substances$Degradation.Factor.Soil <- ifelse(substances$SoilDT50 == 0 | substances$SoilDT50 == 730,
     1,
     degradation_factor_soil
   )

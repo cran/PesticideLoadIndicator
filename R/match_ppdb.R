@@ -44,7 +44,7 @@ extend.fate <- function(fate,ecotox)
     eco<- ecotox[,required_eco]
     fate<- merge(fate,eco,by= "ID")
 
-    fate$BCF[fate$LogP >6 & fate$LogP !=0]<-10^((-0.2*fate$LogP[fate$LogP >6 & fate$LogP !=0])+(2.74*fate$LogP[fate$LogP >6 & fate$LogP !=0])-4.72)
+    fate$BCF[fate$LogP >6 & fate$LogP !=0]<-10^((-0.2*(fate$LogP[fate$LogP >6 & fate$LogP !=0]^2))+(2.74*fate$LogP[fate$LogP >6 & fate$LogP !=0])-4.72)
     fate$BCF[fate$LogP <6 & fate$LogP !=0]<-10^((0.86*fate$LogP[fate$LogP <6 & fate$LogP !=0])-0.7)
     fate$BCF[fate$Bioconcentration.Factor!="" & !(is.na(fate$Bioconcentration.Factor))]<-fate$Bioconcentration.Factor[fate$Bioconcentration.Factor!="" & !(is.na(fate$Bioconcentration.Factor))]
     fate$BCF[is.na(fate$BCF)]<-0
@@ -63,12 +63,12 @@ extend.fate <- function(fate,ecotox)
     fate$stable<-ifelse(str_detect(fate$Soil.DT50.notes, "Stable"),1,0)
     fate$Stable<-ifelse(str_detect(fate$Soil.DT50.notes, "stable"),1,0)
     fate$stable<-fate$stable + fate$Stable
-    fate$SoilDT50[fate$stable!="0"]<-2*354
+    fate$SoilDT50[fate$stable!="0"]<-730
 
     fate$SoilDT50[fate$SoilDT50==""] <- 0
     fate$SoilDT50[is.na(fate$SoilDT50)] <- 0
     fate$SoilDT50[fate$SoilDT50=="#N/A"] <- 0
-    fate$SoilDT50[fate$SoilDT50>709] <- 0
+    fate$SoilDT50[fate$SoilDT50>731] <- 0
     fate$SoilDT50 <- as.numeric(fate$SoilDT50)
     fate$SoilDT50[fate$Soil.DT50.notes=="Both iron and phosphate naturally occur in soil. Degradation will be very slow"] <- 0
     fate$SoilDT50[str_detect(fate$Active, "Copper")]<-0
@@ -85,7 +85,7 @@ extend.fate <- function(fate,ecotox)
     fate$Water.phase.DT50...days[fate$Water.phase.DT50...days=="<1"]<-0.5
     fate$Water.phase.DT50...days[fate$Water.phase.DT50...days==">100"]<-100
     fate$Water.phase.DT50...days[fate$Water.phase.DT50...days=="Slow, DT50 25-30 days"]<-30
-    fate$Water.phase.DT50...days[fate$Water.phase.DT50...days=="Stable"]<-708
+    fate$Water.phase.DT50...days[fate$Water.phase.DT50...days=="Stable"]<-730
 
     fate
 
