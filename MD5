@@ -1,7 +1,7 @@
-9a3c707479b17fca239b5a960ddb569b *DESCRIPTION
+464063d3eb20b8d8df3f1b1d8257ddfd *DESCRIPTION
 c987ec110708970977a53b569322cdfc *LICENSE
 093f43c537d8824814e68c453c99c602 *NAMESPACE
-02f0b73e03d8ac650dcaf693ce737738 *R/compute_load_indicator.R
+dcc8691cda924cbe6f7efc187a65cbf9 *R/compute_load_indicator.R
 822db94511b4067c28d8f5d7ce359880 *R/data_files.R
 1fc2aaac23d845e0bb747fdaf568b419 *R/match_ppdb.R
 ec3e49fc3eb5c81c2785c4346e43dec9 *README.md
@@ -13,7 +13,7 @@ e04e389a61f42532373e5122bcb08258 *inst/extdata/products.xlsx
 cf2f76a87b2ac88de971d5def2e4dea1 *inst/extdata/substances.xlsx
 98fe544ab498ba24d14f533f1bac20b4 *man/check_products_column_names.Rd
 84d83d14eff4676df87372485353eae6 *man/check_substance_column_names.Rd
-c157beeea1653ff82dfc08a47fbf8ad2 *man/compute_pesticide_load_indicator.Rd
+f2a12d353dccf1c76177605df59a4349 *man/compute_pesticide_load_indicator.Rd
 76c64f7dc7d26bf0490da907b8ff1edc *man/compute_risk_score.Rd
 10acd29d84b5d5d55d92121c99025013 *man/default.load.factors.Rd
 b8e8148ed5e47588572210fc090c6eaa *man/match.ppdb.Rd
@@ -25,5 +25,5 @@ ea6bfe24f4a6ea708b6f82137afa6f7d *man/products.path.Rd
 3f92ca7ed0f3c2130be9c075cf59e03c *tests/testthat.R
 f3baa51467c3e658fb0e56abc95b6a80 *tests/testthat/Table_R_products_example.xlsx
 830fd2511b4094ecb4886b21e326c66a *tests/testthat/Table_R_substances_example.xlsx
-e87de49e356c07a6abeff00f0d8ad768 *tests/testthat/test_load_indicator.R
+2bf6c6607800313629d728ef572da0ee *tests/testthat/test_load_indicator.R
 010d73f0ba917e30c6210c53037616a3 *vignettes/readme.Rmd

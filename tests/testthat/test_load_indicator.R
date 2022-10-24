@@ -22,6 +22,6 @@ test_that("load indicator produces known result", {
   expect_equal(result$TL, c(0.274, 0.1424, 0.0173, 0.216), tolerance=1e-3)
   expect_equal(result$L, c(1.087, 0.278, 0.231, 0.918), tolerance=1e-3)
   expect_equal(result$STI, c(0.5, 1.667, NA, NA), tolerance=1e-3)
-  expect_equal(result$LI, c(0.543, 0.4638, NA, NA), tolerance=1e-3)
+  expect_equal(result$LI, c(0.435, 0.149, NA, NA), tolerance=1e-3)
 
 })

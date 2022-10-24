@@ -227,6 +227,8 @@ prepare.substances <- function(substances)
 #' # Step9: Compute the Pesticide Load Indicator and its sub-indicators 
 #' indicators_user <- compute_pesticide_load_indicator(substances = substances_complete,
 #' products= products_complete)
+#' # Note that from version 1.3.1 on, the optional Pesticide Load Index
+#' # is computed by first standardizing the Pesticide Load with the standard dosage. 
 #' }
 #' @export
 
@@ -508,7 +510,7 @@ compute_pesticide_load <- function(products, substances) {
 
 compute_load_index <- function(products) {
   sti_quotient <- products$amount.applied / products$standard.dosage
-  load_index <- sti_quotient * products$L
+  load_index <- sti_quotient * (products$L*products$standard.dosage)
 
   products$STI <- sti_quotient
   products$LI <- load_index

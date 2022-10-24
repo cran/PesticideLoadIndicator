@@ -86,5 +86,7 @@ products_complete$reference.sum.risk.scores <- 350
 # Step9: Compute the Pesticide Load Indicator and its sub-indicators 
 indicators_user <- compute_pesticide_load_indicator(substances = substances_complete,
 products= products_complete)
+# Note that from version 1.3.1 on, the optional Pesticide Load Index
+# is computed by first standardizing the Pesticide Load with the standard dosage. 
 }
 }
